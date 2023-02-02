@@ -1,0 +1,40 @@
+﻿<Window x:Class="SmallWPFTestTask.MainWindow"
+        DataContext="{Binding Source={StaticResource MainBus}, Path=MainWindowViewModel}"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmallWPFTestTask" 
+        xmlns:i="clr-namespace:DevExpress.Mvvm.UI.Interactivity;assembly=DevExpress.Mvvm.UI"
+        xmlns:mvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0"
+                Content="Generate"
+                ToolTip="Genera te new data"
+                Command="{Binding GenerateNewDataCommand}"/>
+
+        <DataGrid Grid.Row="1"
+                  ItemsSource="{Binding Items}"
+                  SelectionMode="Extended"
+                  IsReadOnly="True">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <Button Content="Export to CSV" Command="{Binding SaveDataToCsvCommand}"/>
+                    <Button Content="Export to TXT" Command="{Binding SaveDataToTxtCommand}"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.ItemContainerStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+                </Style>
+            </DataGrid.ItemContainerStyle>
+        </DataGrid>
+    </Grid>
+</Window>
