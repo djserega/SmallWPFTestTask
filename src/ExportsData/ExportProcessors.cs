@@ -7,9 +7,14 @@ namespace SmallWPFTestTask.ExportsData
     /// </summary>
     public sealed class ExportProcessors
     {
-        public static void ConvertAndSaveDataToFile(string pathFile, IEnumerable<Interfaces.IConvertingCSV> dataToCSV)
+        public string? PathFile { get; set; }
+
+        public void ConvertAndSaveDataToFile(IEnumerable<Interfaces.IConvertingCSV> dataToCSV)
         {
-            FileStream fileStream = File.Create(pathFile);
+            if (string.IsNullOrEmpty(PathFile))
+                throw new NullReferenceException($"{nameof(PathFile)} is empty.");
+
+            FileStream fileStream = File.Create(PathFile);
 
             int countData = dataToCSV.Count();
             for (int i = 0; i < countData; i++)
@@ -24,9 +29,12 @@ namespace SmallWPFTestTask.ExportsData
             fileStream.Dispose();
         }
 
-        public static void ConvertAndSaveDataToFile(string pathFile, IEnumerable<Interfaces.IConvertingTXT> dataToCSV)
+        public void ConvertAndSaveDataToFile(IEnumerable<Interfaces.IConvertingTXT> dataToCSV)
         {
-            FileStream fileStream = File.Create(pathFile);
+            if (string.IsNullOrEmpty(PathFile))
+                throw new NullReferenceException($"{nameof(PathFile)} is empty.");
+
+            FileStream fileStream = File.Create(PathFile);
 
             int countData = dataToCSV.Count();
             for (int i = 0; i < countData; i++)

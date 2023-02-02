@@ -25,7 +25,12 @@ namespace SmallWPFTestTask.ViewModels
                 return;
 
             IEnumerable<Interfaces.IConvertingCSV> selectedItems = GetSelectedItems();
-            ExportsData.ExportProcessors.ConvertAndSaveDataToFile(fileName, selectedItems);
+
+            ExportsData.ExportProcessors exportProcessors = new()
+            {
+                PathFile = fileName
+            };
+            exportProcessors.ConvertAndSaveDataToFile(selectedItems);
         });
 
         public ICommand SaveDataToTxtCommand => new DelegateCommand(() =>
@@ -36,7 +41,11 @@ namespace SmallWPFTestTask.ViewModels
                 return;
 
             IEnumerable<Interfaces.IConvertingTXT> selectedItems = GetSelectedItems();
-            ExportsData.ExportProcessors.ConvertAndSaveDataToFile(fileName, selectedItems);
+            ExportsData.ExportProcessors exportProcessors = new()
+            {
+                PathFile = fileName
+            };
+            exportProcessors.ConvertAndSaveDataToFile(selectedItems);
         });
 
         public ICommand GenerateNewDataCommand => new DelegateCommand(() =>
